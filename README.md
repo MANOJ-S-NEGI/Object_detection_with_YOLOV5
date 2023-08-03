@@ -168,10 +168,13 @@ number of arguments:
 ![results](https://github.com/MANOJ-S-NEGI/Object_detection_with_YOLOV5/assets/99602627/c3dbf6d6-bb46-4227-9bfa-e471a30c6429)
 
 # Check the predictions
+ create run.py and paste the below code
 ```
 import os
 
 os.system("python detect.py --weights best.pt --img 416 --conf 0.5 --source 0")
 
-Note:[source 0 is the webcam while weight best.pt is in the same folder with result]
+Note:[source 0 is the webcam while weight best.pt is in the same folder with the result]
 ```
+
+### copy the best.pt and run.py and paste them into the YOLOV5 folder and then execute run.py
