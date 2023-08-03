@@ -1,0 +1,4 @@
+train: ../train/images
+val: ../test/images
+nc: 6 # number of classes
+names: ['Hello', 'IloveYou', 'No', 'Please', 'Thanks', 'Yes']
