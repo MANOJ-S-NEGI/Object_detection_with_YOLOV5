@@ -50,5 +50,128 @@ Note: * Label name generated automatically is the same as the image name
   ```
   git clone https://github.com/ultralytics/yolov5.git
   ```
-
+* install dependencies inside YOLO5s
+    ```
+    !pip install -r requirements.txt
+    
+    import torch
+    print('Setup complete: Using torch  veersion: (torch.__version__)
+    ```
+* create data.yaml file
+    ```
+    train: path/train/images
+    val: path/test/images
+    
+    nc: 6    # number of classes
+    names: ['Hello', 'IloveYou', 'No', 'Please', 'Thanks', 'Yes']
+    ```
   
+* This is the model configuration we will use
+    ```
+      %cat /content/yolov5/models/yolov5s.yaml
+    ```
+    OUTPUT:
+  
+    ![output](https://github.com/MANOJ-S-NEGI/Object_detection_with_YOLOV5/assets/99602627/86014df8-b643-4405-a65b-30507aa719ae)
+
+
+
+
+* Customize iPython writefile
+  ```
+    from IPython.core.magic import register_line_cell_magic
+    @register_line_cell_magic
+      
+    def writetemplate(line, cell):
+       with open(line, 'w') as f:
+       f.write(cell.format(**globals()))
+  ```
+    ```
+    %%writetemplate /content/yolov5/models/custom_yolov5s.yaml
+
+
+     parameters
+    nc: 6  # number of classes
+    depth_multiple: 0.33  # model depth multiple
+    width_multiple: 0.50  # layer channel multiple
+    
+    # anchors
+    anchors:
+      - [10,13, 16,30, 33,23]  # P3/8
+      - [30,61, 62,45, 59,119]  # P4/16
+      - [116,90, 156,198, 373,326]  # P5/32
+    
+    # YOLOv5 backbone
+    backbone:
+      # [from, number, module, args]
+      [[-1, 1, Focus, [64, 3]],  # 0-P1/2
+       [-1, 1, Conv, [128, 3, 2]],  # 1-P2/4
+       [-1, 3, BottleneckCSP, [128]],
+       [-1, 1, Conv, [256, 3, 2]],  # 3-P3/8
+       [-1, 9, BottleneckCSP, [256]],
+       [-1, 1, Conv, [512, 3, 2]],  # 5-P4/16
+       [-1, 9, BottleneckCSP, [512]],
+       [-1, 1, Conv, [1024, 3, 2]],  # 7-P5/32
+       [-1, 1, SPP, [1024, [5, 9, 13]]],
+       [-1, 3, BottleneckCSP, [1024, False]],  # 9
+      ]
+    
+    # YOLOv5 head
+    head:
+      [[-1, 1, Conv, [512, 1, 1]],
+       [-1, 1, nn.Upsample, [None, 2, 'nearest']],
+       [[-1, 6], 1, Concat, [1]],  # cat backbone P4
+       [-1, 3, BottleneckCSP, [512, False]],  # 13
+    
+       [-1, 1, Conv, [256, 1, 1]],
+       [-1, 1, nn.Upsample, [None, 2, 'nearest']],
+       [[-1, 4], 1, Concat, [1]],  # cat backbone P3
+       [-1, 3, BottleneckCSP, [256, False]],  # 17 (P3/8-small)
+    
+       [-1, 1, Conv, [256, 3, 2]],
+       [[-1, 14], 1, Concat, [1]],  # cat head P4
+       [-1, 3, BottleneckCSP, [512, False]],  # 20 (P4/16-medium)
+    
+       [-1, 1, Conv, [512, 3, 2]],
+       [[-1, 10], 1, Concat, [1]],  # cat head P5
+       [-1, 3, BottleneckCSP, [1024, False]],  # 23 (P5/32-large)
+    
+       [[17, 20, 23], 1, Detect, [nc, anchors]],  # Detect(P3, P4, P5)
+      ]
+    ```
+    * NOTE: [only need to change the parameter nc = 6]
+ 
+# Train Custom YOLOv5 Detector
+number of arguments:
+
+* img: define the input image size
+* batch: determine batch size
+* epochs: define the number of training epochs. (Note: often, 3000+ are common here!)
+* data: set the path to our yaml file
+* cfg: specify our model configuration 8 weights: specify a custom path to weights. (Note: you can download weights from the Ultralytics Google Drive folder)
+* name: result names
+* nosave: only save the final checkpoint
+* cache: cache images for faster training
+
+      ```
+      %%time
+      %cd /content/yolov5/
+      !python train.py --img 416 --batch 16 --epochs 300 --data '/content/drive/MyDrive/cnn_data/data/data.yaml' --cfg ./models/custom_yolov5s.yaml --weights 'yolov5s.pt' --name yolov5s_results  --cache
+      ```
+# Evaluate Custom YOLOv5 Detector Performance
+    ```
+    from utils. plots import plot_results 
+    Image(filename='/yolov5s_results/results.png', width=1000)  # view results.png
+    ```
+* Note from Glenn: Partially completed results.txt files can be plotted from utils.utils import plot_results; plot_results().
+    
+![results](https://github.com/MANOJ-S-NEGI/Object_detection_with_YOLOV5/assets/99602627/c3dbf6d6-bb46-4227-9bfa-e471a30c6429)
+
+# Check the predictions
+```
+import os
+
+os.system("python detect.py --weights best.pt --img 416 --conf 0.5 --source 0")
+
+Note:[source 0 is the webcam while weight best.pt is in the same folder with result]
+```
