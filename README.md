@@ -22,8 +22,33 @@
         <li>Step :1 </li>
         Download the hand sign dataset from Kaggle [<a href> https://www.kaggle.com/datasets/gti-upm/leapgestrecog </a>] or can also create your own dataset using your hand gesture images
         <li>step:2</li>
-        use the annotation tool to label the object [tool is attached in this git]
+        use the annotation tool to label the object [tool is attached in this git repo download it]
     </ul>
 </div>
- ![annotation steps](https://github.com/MANOJ-S-NEGI/Object_detection_with_YOLOV5/assets/99602627/95bb271b-622e-4307-a5d2-2f7899799072)
 
+![annotation steps](https://github.com/MANOJ-S-NEGI/Object_detection_with_YOLOV5/assets/99602627/b01e4496-64bb-469e-b818-e09dafc29567)
+
+
+
+<div>
+    <ul>
+        <li>Step :3 </li>
+        separate the generated .txt file into a single folder name label 
+        <li>step:4</li>
+        Do the same with other every image 
+    </ul>
+</div>
+
+```
+Note: * Label name generated automatically is the same as the image name
+      * 30 images are sufficient for each gesture 
+```
+
+# Training the Dataset:
+
+* clone YOLOv5 repository
+  ```
+  git clone https://github.com/ultralytics/yolov5.git
+  ```
+
+  
