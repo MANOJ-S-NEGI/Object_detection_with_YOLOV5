@@ -197,7 +197,8 @@ all setup will be done eventually error will encounter as path need to setup
 
 * open signLanguage folder > components > Data_Training.py
 ```
-yolov5_command = [
+only modify the following paths:
+[
     "python", "PATH/yolov5/train.py",
     "--data", "PATH/data.yaml",
     "--cfg", "PATH/yolov5/models/custom_yolov5s.yaml",
