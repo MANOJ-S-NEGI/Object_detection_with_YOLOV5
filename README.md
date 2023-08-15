@@ -187,15 +187,14 @@ ________________________________________________________________________________
 ________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
 # PYTHON MODULE GUIDE:
 
-```
-run main.py
-```
-all setup will be done eventually error will encounter as the required packages are missing
-
-* copy requirements.txt from YOLO5 Folder and Paste to the Root dir
   ```
   pip install requirement.txt
   ```
+```
+run main.py
+```
+all setup will be done eventually error will encounter as path need to setup
+
 * open signLanguage folder > components > Data_Training.py
 ```
 yolov5_command = [
@@ -204,11 +203,15 @@ yolov5_command = [
     "--cfg", "PATH/yolov5/models/custom_yolov5s.yaml",
 ]
 ```
-* signLanguage folder > constant > init.py and modify the TRAINING_DATA_PATH and VALIDATION_DATA_PATH
+
+* Open
+```
+signLanguage folder > constant > init.py and modify the TRAINING_DATA_PATH and VALIDATION_DATA_PATH
+```
 * run main.py Training will start
 
 
-# Check the predictions
-### copy the best.pt and run.py and paste them into the YOLOV5 folder and then execute run.py
+### Check the predictions
+* copy the best.pt and run.py and paste them into the YOLOV5 folder and then execute run.py
 
 
