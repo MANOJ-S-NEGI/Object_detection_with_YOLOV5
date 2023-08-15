@@ -178,3 +178,37 @@ Note:[source 0 is the webcam while weight best.pt is in the same folder with the
 ```
 
 ### copy the best.pt and run.py and paste them into the YOLOV5 folder and then execute run.py
+
+
+________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+# PYTHON MODULE GUIDE:
+
+```
+run main.py
+```
+all setup will be done eventually error will encounter as the required packages are missing
+
+* copy requirements.txt from YOLO5 Folder and Paste to the Root dir
+  ```
+  pip install requirement.txt
+  ```
+* open signLanguage folder > components > Data_Training.py
+```
+yolov5_command = [
+    "python", "PATH/yolov5/train.py",
+    "--data", "PATH/data.yaml",
+    "--cfg", "PATH/yolov5/models/custom_yolov5s.yaml",
+]
+```
+* signLanguage folder > constant > init.py and modify the TRAINING_DATA_PATH and VALIDATION_DATA_PATH
+* run main.py Training will start
+
+
+# Check the predictions
+### copy the best.pt and run.py and paste them into the YOLOV5 folder and then execute run.py
+
+
