@@ -1,0 +1,10 @@
+names:
+- Hello
+- IloveYou
+- 'No'
+- Please
+- Thanks
+- 'Yes'
+nc: 6
+train: D:/msn/Datasets/handsign/train/images
+val: D:/msn/Datasets/handsign/valid/images
